@@ -1,0 +1,39 @@
+# Build artifacts
+/target
+*.wasm
+*.rlib
+*.rmeta
+dist/
+
+# Cargo lock files
+Cargo.lock
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment and secret files
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.secret
+secret*
+*.private
+
+# Soroban CLI config
+.soroban
+
+# Generated contracts and artifacts
+*.so
+*.dylib
+.build/
+
+# OS-specific files
+Thumbs.db
+.DS_Store
