@@ -1,4 +1,5 @@
 #![no_std]
+#![allow(unexpected_cfgs)]
 
 use soroban_sdk::{
     contract, contractimpl, contracttype, symbol_short, token, Address, Env, Vec as SorobanVec,
@@ -98,29 +99,35 @@ impl NativeFlowContract {
     pub fn execute_payment(env: Env, user: Address, merchant: Address, keeper: Address) -> bool {
         let subscription_key = SorobanVec::from_array(&env, [user.clone(), merchant.clone()]);
 
-        let mut config: SubscriptionConfig = env
+        let mut config: SubscriptionConfig = match env
             .storage()
             .persistent()
             .get::<SorobanVec<Address>, SubscriptionConfig>(&subscription_key)
-            .expect("Subscription does not exist");
+        {
+            Some(cfg) => cfg,
+            None => return false,
+        };
 
         let current_ledger_timestamp = env.ledger().timestamp();
 
-        require_payment_due(&config, current_ledger_timestamp);
+        let payment_due_time = config.last_charge + config.interval;
+        if current_ledger_timestamp < payment_due_time {
+            return false;
+        }
 
         let token_client = token::Client::new(&env, &config.token);
 
         token_client.transfer_from(
+            &env.current_contract_address(),
             &user,
             &merchant,
-            &env.current_contract_address(),
             &config.amount,
         );
 
         token_client.transfer_from(
+            &env.current_contract_address(),
             &user,
             &keeper,
-            &env.current_contract_address(),
             &config.keeper_bounty,
         );
 
@@ -154,10 +161,5 @@ impl NativeFlowContract {
     }
 }
 
-/// Helper function to ensure payment is due
-fn require_payment_due(config: &SubscriptionConfig, current_time: u64) {
-    let payment_due_time = config.last_charge + config.interval;
-    if current_time < payment_due_time {
-        panic!("Payment is not yet due");
-    }
-}
+#[cfg(test)]
+mod test;

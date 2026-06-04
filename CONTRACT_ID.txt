@@ -1,0 +1,7 @@
+# NativeFlow Contract Deployment
+
+Contract ID: CAX3DPOZCQCDEMDJNHDZ5ZRG4NJVLNOUKIBLDRXUSQQJ4MEEFKQGM3RS
+Network: Stellar Testnet
+Deployed: Thursday, Jun 4, 2026
+Network Passphrase: Test Stellar Public Network ; September 2015
+RPC URL: https://soroban-testnet.stellar.org:443

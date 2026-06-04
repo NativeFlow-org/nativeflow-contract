@@ -137,7 +137,7 @@ Queries subscription configuration details.
 
 ### Stellar Testnet Deployment
 
-**Contract ID:** `CBEFNFKYCTDLQZV3BNQMQJJGWLXR4XVKJLVGNYSJFJZNQKV7X2FVWCTW`
+**Contract ID:** `CAX3DPOZCQCDEMDJNHDZ5ZRG4NJVLNOUKIBLDRXUSQQJ4MEEFKQGM3RS`
 
 **Network:** Stellar Test Stellar Public Network ; September 2015  
 **RPC Endpoint:** https://soroban-testnet.stellar.org:443
@@ -252,7 +252,7 @@ soroban contract deploy \
 ```bash
 # Subscribe to recurring payment
 soroban contract invoke \
-  --id CBEFNFKYCTDLQZV3BNQMQJJGWLXR4XVKJLVGNYSJFJZNQKV7X2FVWCTW \
+  --id CAX3DPOZCQCDEMDJNHDZ5ZRG4NJVLNOUKIBLDRXUSQQJ4MEEFKQGM3RS \
   --source-account <USER_ACCOUNT> \
   --network testnet \
   -- subscribe \
